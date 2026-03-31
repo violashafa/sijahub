@@ -1,6 +1,7 @@
 .navbar {
     background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
-    padding: 15px 50px;
+    /* Ukuran diperpendek dari 15px ke 8px */
+    padding: 8px 50px; 
     position: fixed;
     top: 0; left: 0; right: 0;
     z-index: 1000;
@@ -13,15 +14,32 @@
 }
 
 .logo-section { display: flex; align-items: center; gap: 15px; }
-.icon { width: 45px; height: 45px; border-radius: 50%; overflow: hidden; border: 2px solid white; }
+
+.icon { 
+    /* Ukuran diperkecil dari 45px ke 36px */
+    width: 36px; 
+    height: 36px; 
+    border-radius: 50%; 
+    overflow: hidden; 
+    border: 2px solid white; 
+}
+
 .icon img { width: 100%; height: 100%; object-fit: cover; }
-.logo { font-size: 24px; font-weight: 700; color: white; }
+
+.logo { 
+    /* Ukuran font diperkecil sedikit agar proporsional */
+    font-size: 20px; 
+    font-weight: 700; 
+    color: white; 
+}
 
 /* Menu Utama */
 .menu { display: flex; gap: 10px; align-items: center; }
 .menu a {
     color: white; text-decoration: none; font-size: 14px;
-    padding: 8px 15px; border-radius: 8px; transition: 0.3s;
+    /* Padding diperkecil dari 8px ke 5px */
+    padding: 5px 12px; 
+    border-radius: 8px; transition: 0.3s;
 }
 .menu a:hover { background: rgba(255, 255, 255, 0.15); }
 .menu a.active { background: rgba(0, 0, 0, 0.2); font-weight: 600; }
@@ -41,14 +59,17 @@
 
 /* RESPONSIVE MOBILE */
 @media (max-width: 992px) {
-    .navbar { padding: 10px 20px; }
+    /* Padding mobile disesuaikan agar lebih ramping */
+    .navbar { padding: 8px 20px; } 
     .hamburger { display: flex; }
 
     .menu {
         position: fixed;
-        top: 75px; right: -100%;
+        /* Jarak top dikurangi dari 75px ke 60px agar menempel pas di bawah navbar tipis */
+        top: 60px; 
+        right: -100%;
         width: 250px;
-        height: auto; /* Box menyesuaikan konten */
+        height: auto;
         background: #138496;
         flex-direction: column;
         padding: 15px;
