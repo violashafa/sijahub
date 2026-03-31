@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  sijahub-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: kelompok7-sijahub
+    ports:
+      - "5000:5000"
+    env_file:
+      - ./backend/.env
+    restart: always
+    environment:
+      - NODE_ENV=production
+    networks:
+      - sijahub-network
+
+networks:
+  sijahub-network:
+    driver: bridge
