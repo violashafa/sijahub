@@ -4,22 +4,28 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: kelompok7-sijahub
-    # Port 5000 disembunyikan (Internal Only)
     expose:
       - "5000"
     env_file:
       - ./backend/.env
+    networks:
+      - sijahub-net
     restart: always
 
   nginx-proxy:
     image: nginx:alpine
     container_name: kelompok7-nginx
     ports:
-      - "8443:80" # TAMU MASUK LEWAT 8443 -> DIOPER KE NGINX 80
+      - "8443:80"  # <--- Tetap pake 8443 sesuai mau kamu!
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
       - ./frontend:/usr/share/nginx/html:ro
-      - /etc/tailscale/certs:/etc/tailscale/certs:ro # Mengambil sertifikat SSL Tailscale
+    networks:
+      - sijahub-net
     depends_on:
       - sijahub-app
     restart: always
+
+networks:
+  sijahub-net:
+    driver: bridge
