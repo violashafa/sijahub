@@ -233,7 +233,7 @@
         // 1. Load Data Profil Saat Halaman Dibuka
         async function loadProfile() {
             try {
-                const res = await fetch('https://localhost:5000/api/auth/profile', {
+                const res = await fetch('/api/auth/profile', {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 const json = await res.json();
@@ -280,7 +280,7 @@
             }
 
             try {
-                const res = await fetch('https://localhost:5000/api/auth/update-profile', {
+                const res = await fetch('/api/auth/update-profile', {
                     method: 'PUT',
                     headers: { 'Authorization': `Bearer ${token}` },
                     body: formData
