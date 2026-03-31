@@ -25,7 +25,7 @@ function showLogin() {
 /* INTEGRASI BACKEND */
 const API_URL = window.location.hostname === "localhost" 
     ? "http://localhost:5000/api/auth" 
-    : "https://comneta4.tailc90b09.ts.net:8443/api/auth";
+    : "/api/auth";
 
 async function handleLogin() {
     const email = document.getElementById("login-email").value;
