@@ -9,13 +9,19 @@ require('dotenv').config();
 const errorHandler = require('./middlewares/errorHandler');
 
 const app = express();
+
+// ===== FIX: PENTING UNTUK DOCKER & NGINX =====
+// Memberitahu Express bahwa dia berada di belakang proxy (Nginx)
+// Ini akan menghilangkan error ValidationError dari express-rate-limit
+app.set('trust proxy', 1); 
+
 connectDB();
 
 // ===== MIDDLEWARE KEAMANAN & OPTIMASI =====
 app.use(
   helmet({
     crossOriginResourcePolicy: false, 
-    // TAMBAHKAN INI: Agar browser mengizinkan pemuatan gambar dari domain Cloudinary
+    // Agar browser mengizinkan pemuatan gambar dari domain Cloudinary
     contentSecurityPolicy: {
       directives: {
         defaultSrc: ["'self'"],
@@ -42,8 +48,7 @@ app.use('/api/', limiter);
 
 app.use(express.json());
 
-// Ini sudah boleh dihapus sebenarnya kalau kamu sudah yakin full pakai Cloudinary, 
-// tapi biarkan saja dulu untuk cadangan (backward compatibility)
+// Cadangan folder lokal (opsional)
 app.use('/uploads', express.static('uploads'));
 
 // ===== ROUTES =====
