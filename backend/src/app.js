@@ -10,22 +10,19 @@ const errorHandler = require('./middlewares/errorHandler');
 
 const app = express();
 
-// ===== FIX: PENTING UNTUK DOCKER & NGINX =====
-// Memberitahu Express bahwa dia berada di belakang proxy (Nginx)
-// Ini akan menghilangkan error ValidationError dari express-rate-limit
+// ===== 1. SETTING PROXY (WAJIB UNTUK DOCKER/NGINX) =====
 app.set('trust proxy', 1); 
 
 connectDB();
 
-// ===== MIDDLEWARE KEAMANAN & OPTIMASI =====
+// ===== 2. MIDDLEWARE KEAMANAN & OPTIMASI =====
 app.use(
   helmet({
     crossOriginResourcePolicy: false, 
-    // Agar browser mengizinkan pemuatan gambar dari domain Cloudinary
     contentSecurityPolicy: {
       directives: {
         defaultSrc: ["'self'"],
-        imgSrc: ["'self'", "data:", "https://res.cloudinary.com"], // Izinkan Cloudinary
+        imgSrc: ["'self'", "data:", "https://res.cloudinary.com"], 
       },
     },
   })
@@ -35,7 +32,7 @@ app.use(compression());
 app.use(morgan('dev')); 
 app.use(cors());
 
-// Pembatasan Request (Rate Limiting)
+// Pembatasan Request
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, 
   max: 100, 
@@ -47,11 +44,9 @@ const limiter = rateLimit({
 app.use('/api/', limiter); 
 
 app.use(express.json());
-
-// Cadangan folder lokal (opsional)
 app.use('/uploads', express.static('uploads'));
 
-// ===== ROUTES =====
+// ===== 3. ROUTES (PASTIKAN PAKAI 'S' / PLURAL) =====
 const studentRoutes = require('./routes/studentRoutes');
 const achievementRoutes = require('./routes/achievementRoutes');
 const competitionRoutes = require('./routes/competitionRoutes'); 
@@ -59,7 +54,7 @@ const jobRoutes = require('./routes/jobRoutes');
 const authRoutes = require('./routes/authRoutes'); 
 
 app.use('/api/students', studentRoutes);
-app.use('/api/achievements', achievementRoutes);
+app.use('/api/achievements', achievementRoutes); // Jalur: /api/achievements
 app.use('/api/competitions', competitionRoutes);
 app.use('/api/jobs', jobRoutes);
 app.use('/api/auth', authRoutes); 
