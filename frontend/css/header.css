@@ -1,7 +1,7 @@
 .navbar {
     background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
     /* Ukuran diperpendek dari 15px ke 8px */
-    padding: 8px 50px; 
+    padding: 10px 50px; 
     position: fixed;
     top: 0; left: 0; right: 0;
     z-index: 1000;
