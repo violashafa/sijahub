@@ -4,6 +4,8 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: kelompok7-sijahub
+    # Kita pakai EXPOSE (Pintu Dalam), bukan PORTS (Pintu Luar)
+    # Jadi tidak akan bentrok dengan siapa pun di luar!
     expose:
       - "5000"
     env_file:
@@ -16,7 +18,7 @@ services:
     image: nginx:alpine
     container_name: kelompok7-nginx
     ports:
-      - "8443:80"  # <--- Tetap pake 8443 sesuai mau kamu!
+      - "8443:80" # Tamu masuk lewat 8443 (HTTPS kamu)
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
       - ./frontend:/usr/share/nginx/html:ro
